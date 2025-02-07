@@ -1,0 +1,14 @@
+[
+    {
+        "task": "RAZ",
+        "done": true
+    },
+    {
+        "task": "Nowe",
+        "done": true
+    },
+    {
+        "task": "Zadanie",
+        "done": false
+    }
+]
