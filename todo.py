@@ -49,12 +49,21 @@ def get_tasks():
     return tasks
 
 # Oznaczanie zadania jako wykonane
-def mark_task_done(task_id):
+def toggle_task_done(task_id):
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("UPDATE tasks SET done = NOT done WHERE id = %s", (task_id,))
+
+    # Pobieramy aktualny status zadania
+    cursor.execute("SELECT done FROM tasks WHERE id = %s", (task_id,))
+    current_status = cursor.fetchone()[0]  # Pobiera wartość `done`
+
+    # Zmiana statusu na przeciwny (True ↔ False)
+    new_status = not current_status
+    cursor.execute("UPDATE tasks SET done = %s WHERE id = %s", (new_status, task_id))
+
     conn.commit()
     conn.close()
+
 
 # Usuwanie zadania
 def delete_task(task_id):

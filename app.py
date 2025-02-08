@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, Response, render_template, redirect, 
 import psycopg2
 import os
 from prometheus_client import Counter, generate_latest
+from todo import toggle_task_done
+
 
 app = Flask(__name__)
 
@@ -64,14 +66,10 @@ def index():
     return render_template("index.html", tasks=tasks)
 
 # Oznaczenie zadania jako wykonane
-@app.route("/done/<int:task_id>")
-def mark_done(task_id):
-    conn = connect_db()
-    cursor = conn.cursor()
-    cursor.execute("UPDATE tasks SET done = TRUE WHERE id = %s", (task_id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for("index"))
+@app.route("/toggle/<int:task_id>")
+def toggle_task(task_id):
+    toggle_task_done(task_id)
+    return redirect("/")
 
 # Usunięcie zadania
 @app.route("/delete/<int:task_id>")

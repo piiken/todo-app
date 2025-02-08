@@ -25,6 +25,8 @@
                 {% endif %}
                 <a href="/done/{{ task[0] }}">✔</a>
                 <a href="/delete/{{ task[0] }}">❌</a>
+                <a href="/toggle/{{ task.id }}">✅ / ❌</a>
+
             </li>
         {% endfor %}
     </ul>
