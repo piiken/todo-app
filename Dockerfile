@@ -9,6 +9,7 @@ COPY . .
 
 # Instalujemy wymagane pakiety
 RUN pip install --no-cache-dir psycopg2-binary flask
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Uruchamiamy aplikację webową Flask
 CMD ["python", "app.py"]
